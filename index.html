@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>bagcarry: move a wallabag library to Karakeep with tags, archive state, stars and annotations</title>
+<meta name="description" content="Choose your wallabag JSON export and download a file that Karakeep's import dialog reads, keeping tags, dates, archived state, starred articles and annotations. Nothing is uploaded.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Move a wallabag library to Karakeep, with tags, archive state, stars and annotations</h1>
+<p>Karakeep has no wallabag import. The usual way round converts the export to a browser bookmarks file, which keeps the address, title, date and tags, and loses which articles you archived, which you starred and what you highlighted. This page turns the wallabag JSON export into a file in Karakeep's own export format, so those come along too.</p>
+<ol class="small">
+<li>In wallabag, open "All articles", then use the export icon in the top bar and choose JSON.</li>
+<li>Choose that file below. It is read in your browser and nothing in this page's code sends it anywhere; the page's security policy also blocks its scripts from fetch and similar requests.</li>
+<li>Download the converted file.</li>
+<li>In Karakeep, open Settings, then "Import / Export", and use the import button of the card named "Karakeep" with the converted file.</li>
+</ol>
+<p><label>wallabag JSON export <input type="file" id="file" accept=".json,application/json"></label></p>
+<p id="status" role="status"></p>
+<div id="list"></div>
+<p><button type="button" id="save" disabled>Download the file for Karakeep</button> <button type="button" id="clear">Clear the page</button></p>
+<p class="small">What is kept: address, title, date added, tags, archived state. Starred articles are also put in a list named "Starred in wallabag". Each annotation is copied into the bookmark's note, the highlighted passage as a quote followed by your comment. Karakeep fetches each page again itself; the article text saved by wallabag is not carried over. Karakeep merges bookmarks that share an address when it imports, and puts everything it imports under one new list. No warranty: check a few articles after importing.</p>
+<div class="price">
+<p><strong>Possible later tool: keep the saved text of articles whose page is gone (3 USD, one time, not built).</strong></p>
+<p>For each article whose address no longer answers, it would add a text bookmark holding the article as wallabag saved it. Nothing is charged now and no date is promised. If you want it, say so in a public comment on the issue below; there is no payment of any kind before I answer there.</p>
+<p><a href="https://github.com/Rezarys/bagcarry/issues/1">Tell me you want it (free GitHub account needed)</a></p>
+</div>
+<p class="small">Reads the JSON export of wallabag 2.x, old and recent. The whole file is read into memory, so a very large export with every article's text may be slow. It has been tested with automated tests on example files written after wallabag's own test exports, checked against Karakeep's import file format as written in its source code, but not in a real browser, not on a real export and not in a running Karakeep. If it does not work for you, an issue on the repo helps; please do not attach your real export, only the wallabag version and the error shown. Not affiliated with the wallabag or Karakeep projects; their names are used here only to say which files this reads and writes. Built with AI assistance, tested with automated tests, not reviewed line by line. No cookies, no browser storage, no analytics, no third-party code. MIT licensed, source on <a href="https://github.com/Rezarys/bagcarry">GitHub</a>. Younes Z.</p>
+<script src="convert.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
